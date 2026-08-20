@@ -12,11 +12,16 @@ class TennisGame:
         self.player2 += 1
 
     def score(self):
-        
+        difference = self.player1 - self.player2
+
+        if self.player1 >= 4 and difference >= 2:
+            return "Win for Player 1"
+
+        if self.player2 >= 4 and difference <= -2:
+            return "Win for Player 2"
+
         # From 40-40 onwards, the difference decides deuce or advantage.
         if self.player1 >= 3 and self.player2 >= 3:
-            difference = self.player1 - self.player2
-
             if difference == 0:
                 return "Deuce"
 
@@ -25,7 +30,7 @@ class TennisGame:
 
             if difference == -1:
                 return "Advantage Player 2"
-        
+
         if self.player1 == self.player2:
             return f"{self.points[self.player1]}-All"
 
@@ -127,3 +132,20 @@ def test_back_to_deuce():
     game.player2_scores()
 
     assert game.score() == "Deuce"
+    
+def test_player1_wins():
+    game = TennisGame()
+
+    for _ in range(4):
+        game.player1_scores()
+
+    assert game.score() == "Win for Player 1"
+
+
+def test_player2_wins():
+    game = TennisGame()
+
+    for _ in range(4):
+        game.player2_scores()
+
+    assert game.score() == "Win for Player 2"
