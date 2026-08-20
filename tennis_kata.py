@@ -13,10 +13,18 @@ class TennisGame:
 
     def score(self):
         
-        # From 40-40 onwards, normal score names are no longer used.
+        # From 40-40 onwards, the difference decides deuce or advantage.
         if self.player1 >= 3 and self.player2 >= 3:
-            if self.player1 == self.player2:
+            difference = self.player1 - self.player2
+
+            if difference == 0:
                 return "Deuce"
+
+            if difference == 1:
+                return "Advantage Player 1"
+
+            if difference == -1:
+                return "Advantage Player 2"
         
         if self.player1 == self.player2:
             return f"{self.points[self.player1]}-All"
@@ -74,6 +82,8 @@ def test_equal_score():
     game.player2_scores()
 
     assert game.score() == "30-All"
+
+#Deuce and advantage tests
     
 def test_deuce():
     game = TennisGame()
@@ -83,3 +93,25 @@ def test_deuce():
         game.player2_scores()
 
     assert game.score() == "Deuce"
+
+def test_advantage_player1():
+    game = TennisGame()
+
+    for _ in range(3):
+        game.player1_scores()
+        game.player2_scores()
+
+    game.player1_scores()
+
+    assert game.score() == "Advantage Player 1"
+
+def test_advantage_player2():
+    game = TennisGame()
+
+    for _ in range(3):
+        game.player1_scores()
+        game.player2_scores()
+
+    game.player2_scores()
+
+    assert game.score() == "Advantage Player 2"
