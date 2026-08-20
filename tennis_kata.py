@@ -115,3 +115,15 @@ def test_advantage_player2():
     game.player2_scores()
 
     assert game.score() == "Advantage Player 2"
+
+def test_back_to_deuce():
+    game = TennisGame()
+
+    for _ in range(3):
+        game.player1_scores()
+        game.player2_scores()
+
+    game.player1_scores()
+    game.player2_scores()
+
+    assert game.score() == "Deuce"
