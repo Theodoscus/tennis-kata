@@ -1,0 +1,71 @@
+class TennisGame:
+    points = ["Love", "15", "30", "40"]
+
+    def __init__(self):
+        self.player1 = 0
+        self.player2 = 0
+
+    def player1_scores(self):
+        self.player1 += 1
+    
+    def player2_scores(self):
+        self.player2 += 1
+
+    def score(self):
+        
+        if self.player1 == self.player2:
+            return f"{self.points[self.player1]}-All"
+
+        return f"{self.points[self.player1]}-{self.points[self.player2]}"
+
+#Tests for TennisGame class
+
+#Basic scoring tests
+def test_new_game():
+    game = TennisGame()
+
+    assert game.score() == "Love-All"
+
+def test_player1_scoring():
+    game = TennisGame()
+
+    game.player1_scores()
+    assert game.score() == "15-Love"
+
+    game.player1_scores()
+    assert game.score() == "30-Love"
+
+    game.player1_scores()
+    assert game.score() == "40-Love"
+
+def test_player2_scoring():
+    game = TennisGame()
+
+    game.player2_scores()
+    assert game.score() == "Love-15"
+
+    game.player2_scores()
+    assert game.score() == "Love-30"
+
+    game.player2_scores()
+    assert game.score() == "Love-40"
+
+def test_mixed_score():
+    game = TennisGame()
+
+    game.player1_scores()
+    game.player1_scores()
+    game.player2_scores()
+
+    assert game.score() == "30-15"
+
+
+def test_equal_score():
+    game = TennisGame()
+
+    game.player1_scores()
+    game.player1_scores()
+    game.player2_scores()
+    game.player2_scores()
+
+    assert game.score() == "30-All"
