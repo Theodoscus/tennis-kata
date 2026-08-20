@@ -13,6 +13,11 @@ class TennisGame:
 
     def score(self):
         
+        # From 40-40 onwards, normal score names are no longer used.
+        if self.player1 >= 3 and self.player2 >= 3:
+            if self.player1 == self.player2:
+                return "Deuce"
+        
         if self.player1 == self.player2:
             return f"{self.points[self.player1]}-All"
 
@@ -69,3 +74,12 @@ def test_equal_score():
     game.player2_scores()
 
     assert game.score() == "30-All"
+    
+def test_deuce():
+    game = TennisGame()
+    
+    for _ in range(3):
+        game.player1_scores()
+        game.player2_scores()
+
+    assert game.score() == "Deuce"
