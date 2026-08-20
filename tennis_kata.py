@@ -13,7 +13,7 @@ class TennisGame:
 
     def score(self):
         difference = self.player1 - self.player2
-
+        #Player needs at least 4 points and a difference of 2 to win the game.
         if self.player1 >= 4 and difference >= 2:
             return "Win for Player 1"
 
@@ -133,6 +133,8 @@ def test_back_to_deuce():
 
     assert game.score() == "Deuce"
     
+#Win conditions tests
+    
 def test_player1_wins():
     game = TennisGame()
 
@@ -147,5 +149,30 @@ def test_player2_wins():
 
     for _ in range(4):
         game.player2_scores()
+
+    assert game.score() == "Win for Player 2"
+
+def test_player1_wins_after_deuce():
+    game = TennisGame()
+
+    for _ in range(3):
+        game.player1_scores()
+        game.player2_scores()
+
+    game.player1_scores()
+    game.player1_scores()
+
+    assert game.score() == "Win for Player 1"
+
+
+def test_player2_wins_after_deuce():
+    game = TennisGame()
+
+    for _ in range(3):
+        game.player1_scores()
+        game.player2_scores()
+
+    game.player2_scores()
+    game.player2_scores()
 
     assert game.score() == "Win for Player 2"
